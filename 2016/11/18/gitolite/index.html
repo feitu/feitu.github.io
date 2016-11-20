@@ -1,0 +1,630 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="提要前几日在工作中，不慎将gitolite conf文件中的gitolite-admin repo误删掉了，经过一系列研究，最终恢复了conf文件，在恢复的过程中，google没有发现同样的问题，写下这篇文章，算是个记录，如果有人遇到类似的问题，或许可以帮上些忙。
+##问题是如何出现的
+某天来到单位，得知需要调整下某个repo的权限，打开conf文件，配置好，执行git push，等待着出现配置成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gitolite conf文件误删gitolite-admin后的恢复经验">
+<meta property="og:url" content="http://yoursite.com/2016/11/18/gitolite/index.html">
+<meta property="og:site_name" content="feitu的博客">
+<meta property="og:description" content="提要前几日在工作中，不慎将gitolite conf文件中的gitolite-admin repo误删掉了，经过一系列研究，最终恢复了conf文件，在恢复的过程中，google没有发现同样的问题，写下这篇文章，算是个记录，如果有人遇到类似的问题，或许可以帮上些忙。
+##问题是如何出现的
+某天来到单位，得知需要调整下某个repo的权限，打开conf文件，配置好，执行git push，等待着出现配置成">
+<meta property="og:updated_time" content="2016-11-20T09:47:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="gitolite conf文件误删gitolite-admin后的恢复经验">
+<meta name="twitter:description" content="提要前几日在工作中，不慎将gitolite conf文件中的gitolite-admin repo误删掉了，经过一系列研究，最终恢复了conf文件，在恢复的过程中，google没有发现同样的问题，写下这篇文章，算是个记录，如果有人遇到类似的问题，或许可以帮上些忙。
+##问题是如何出现的
+某天来到单位，得知需要调整下某个repo的权限，打开conf文件，配置好，执行git push，等待着出现配置成">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/18/gitolite/"/>
+
+
+
+
+
+  <title> gitolite conf文件误删gitolite-admin后的恢复经验 | feitu的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">feitu的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/18/gitolite/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="feitu">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="feitu的博客">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="feitu的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                gitolite conf文件误删gitolite-admin后的恢复经验
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-18T19:15:09+08:00">
+                2016-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="提要"><a href="#提要" class="headerlink" title="提要"></a>提要</h2><p>前几日在工作中，不慎将gitolite conf文件中的gitolite-admin repo误删掉了，经过一系列研究，最终恢复了conf文件，在恢复的过程中，google没有发现同样的问题，写下这篇文章，算是个记录，如果有人遇到类似的问题，或许可以帮上些忙。</p>
+<p>##问题是如何出现的</p>
+<p>某天来到单位，得知需要调整下某个repo的权限，打开conf文件，配置好，执行git push，等待着出现配置成功的信息，几秒钟后，一片文字飘过，意思是大概是repo权限解析出现问题云云，检查conf文件，发现conf文件的前面几十行不知道去哪里了，这前几十行中包括gitolite-admin repo的配置、用户组的配置，以及许多项目repo的配置，问了下开发人员，果然所有的repo都无法pull和push了…</p>
+<p>然后开始了坎坷的恢复工作。</p>
+<h2 id="恢复过程"><a href="#恢复过程" class="headerlink" title="恢复过程"></a>恢复过程</h2><p>0.首先考虑gitolite-admin也是个repo，如果修改gitolite server上HEAD的commit id到提交之前的一次，是不是就可以恢复了？按照这个思路，修改了gitolite-admin的ref/head/master 中的commit id，测试结果；无效，恩，如果这样就成功了，未免太简单。</p>
+<p>1.进一步考虑gitolite-admin是一个比较特殊的repo，很可能提交的时候gitolite server修改了其他的配置文件，于是检索了下/home/git最近被修改的文件，发现被修改的还不少，其中~/.gitolite/conf下的几个文件看上去比较可疑，这个目录下有三个文件，分别是gitolite.conf, gitolite.conf-compiled.pm, rule_info,第一个文件中是，第二个文件，第三个文件的内容比较费解，没有深入研究，修改了前两个文件，测试，依然无效，恩，就算是思路是对的，rule_info这个文件也没有修改，无效是正常的。</p>
+<p>2.这个时候开始google，再看了大概前三页的结果后，发现没有任何一个描述的问题和我遇到的一个，这个错误看来是太低级了…</p>
+<p>3.既然google都搞不定，开始预感到要备份所有的repo然后重装gitolite了，在备份repo之前，我决定再看看官方的文档，试试运气<br>于是乎打开官方文档中紧急情况处理的说明 ：<a href="http://gitolite.com/gitolite/emergencies.html，发现了居然有这个问题的一个解决方案:”bypassing" target="_blank" rel="external">http://gitolite.com/gitolite/emergencies.html，发现了居然有这个问题的一个解决方案:”bypassing</a> gitolite”,马上使用root登录server，按照文档提供的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git clone home/git/repositories/gitolite-admin.git temp</div><div class="line">cd temp</div></pre></td></tr></table></figure>
+<p>回滚到了上一个commit，然后执行了文档上说的那个可以让万物恢复秩序的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">/home/git/bin/gitolite push</div><div class="line">! [rejected] master -&gt; master (non-fast-forward)</div><div class="line">error: failed to push some refs to &apos;/home/git/repositories/gitolite-admin.git&apos;</div><div class="line">To prevent you from losing history, non-fast-forward updates were rejected</div><div class="line">Merge the remote changes before pushing again. See the &apos;Note about</div><div class="line">fast-forwards&apos; section of &apos;git push --help&apos; for details</div></pre></td></tr></table></figure>
+<p>额。失败了。。</p>
+<p>文档上说了，可以加上 -f试试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">/home/git/bin/gitolite push -f</div><div class="line">Total 0 (delta 0), reused 0 (delta 0)</div><div class="line">remote: FATAL: errors found but logfile could not be created</div><div class="line">remote: FATAL: /root/.gitolite/logs/gitolite-2015-12.log: No such file or directory</div><div class="line">remote: FATAL: update /home/git/repositories/gitolite-admin.git (root) bypass refs/heads/master ff87eca35fe679f8de3b91d2f9153619f6ab7058 279782d66eb0266371643d94ec3f2af5cebb374f</div><div class="line">remote: error: hook declined to update refs/heads/master</div><div class="line">To /home/git/repositories/gitolite-admin.git</div><div class="line">! [remote rejected] master -&gt; master (hook declined)</div><div class="line">error: failed to push some refs to &apos;/home/git/repositories/gitolite-admin.git&apos;</div></pre></td></tr></table></figure>
+<p>额，又失败了。。。</p>
+<p>4.考虑到当初用的git用户安装的gitolite，可能要使用git用户执行这个操作，而不是root，于是乎su git之后使用 ~/bin/gitolite push，这次是文件权限不足，直接find . -exec chmod 777 {} \; 依然报错…<br>PS，后来恢复正常以后我又试了一次，这个办法又可行了。</p>
+<p>5.这一次从头开始，使用git用户执行 git clone /home/git/repositories/gitolite-admin.git temp，进入temp目录，这一次更无语，temp目录下没有任何文件，是的，没有任何文件…难道git用户没有这些文件的权限，导致clone了一个空的repo，检查gitolite-admin，发现这些文件的拥有者确实是git,这个地方始终没有搞明白为什么clone的是一个空的repo，刚看到些希望，貌似又破灭了，干脆把本地gitolite-admin repo上传到服务器试试。上传解压后，执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">~/bin/gitolite push</div><div class="line">No refs in common and none specified; doing nothing.</div><div class="line">Perhaps you should specify a branch such as &apos;master&apos;.</div><div class="line">fatal: The remote end hung up unexpectedly</div><div class="line">error: failed to push some refs to &apos;/home/git/repositories/gitolite-admin.git&apos;</div><div class="line">~/bin/gitolite push origin master</div><div class="line">Counting objects: 18, done.</div><div class="line">Compressing objects: 100% (18/18), done.</div><div class="line">Writing objects: 100% (18/18), 5.61 KiB, done.</div><div class="line">Total 18 (delta 1), reused 0 (delta 0)</div><div class="line">Unpacking objects: 100% (18/18), done.</div><div class="line">error: unable to resolve reference refs/heads/master: Permission denied</div><div class="line">remote: error: failed to lock refs/heads/master</div><div class="line">To /home/git/repositories/gitolite-admin.git</div><div class="line">! [remote rejected] master -&gt; master (failed to lock)</div><div class="line">error: failed to push some refs to &apos;/home/git/repositories/gitolite-admin.git</div></pre></td></tr></table></figure>
+<p>果然还是报错。等下，这次的报错和前几次不太一样。refs/heads/master: Permission denied，没有权限。没有权限好说，加上就是了（有点死马当活马医的感觉了）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod 777 /home/git/repositories/gitolite-admin.git/refs/heads/master</div></pre></td></tr></table></figure>
+<p>顺便说一下，原来的权限是600，再次执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">~/bin/gitolite push origin master:master -f</div><div class="line">Counting objects: 18, done.</div><div class="line">Compressing objects: 100% (18/18), done.</div><div class="line">Writing objects: 100% (18/18), 5.61 KiB, done.</div><div class="line">Total 18 (delta 1), reused 0 (delta 0)</div><div class="line">Unpacking objects: 100% (18/18), done.</div><div class="line">To /home/git/repositories/gitolite-admin.git</div><div class="line">+ 35cafe6...d9dd5b0 master -&gt; master (forced update)</div></pre></td></tr></table></figure>
+<p>没有思想准备就成功了。</p>
+<h2 id="总结下经验吧"><a href="#总结下经验吧" class="headerlink" title="总结下经验吧"></a>总结下经验吧</h2><ul>
+<li>配置权限文件的时候不要太随意，一定要多检查几次</li>
+<li>遇到问题多看看官方文档</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/18/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="feitu" />
+          <p class="site-author-name" itemprop="name">feitu</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">Artikel</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#提要"><span class="nav-number">1.</span> <span class="nav-text">提要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#恢复过程"><span class="nav-number">2.</span> <span class="nav-text">恢复过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结下经验吧"><span class="nav-number">3.</span> <span class="nav-text">总结下经验吧</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">feitu</span>
+</div>
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
