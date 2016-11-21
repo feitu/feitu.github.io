@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -97,7 +97,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"post"},
     fancybox: true,
     motion: true,
@@ -131,6 +131,16 @@
   
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?3eea35fb4fb7a7ecd78a8b717b44666b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -315,8 +325,7 @@
         
           
             <h2 id="提要"><a href="#提要" class="headerlink" title="提要"></a>提要</h2><p>前几日在工作中，不慎将gitolite conf文件中的gitolite-admin repo误删掉了，经过一系列研究，最终恢复了conf文件，在恢复的过程中，google没有发现同样的问题，写下这篇文章，算是个记录，如果有人遇到类似的问题，或许可以帮上些忙。</p>
-<p>##问题是如何出现的</p>
-<p>某天来到单位，得知需要调整下某个repo的权限，打开conf文件，配置好，执行git push，等待着出现配置成功的信息，几秒钟后，一片文字飘过，意思是大概是repo权限解析出现问题云云，检查conf文件，发现conf文件的前面几十行不知道去哪里了，这前几十行中包括gitolite-admin repo的配置、用户组的配置，以及许多项目repo的配置，问了下开发人员，果然所有的repo都无法pull和push了…</p>
+<h2 id="问题是如何出现的"><a href="#问题是如何出现的" class="headerlink" title="问题是如何出现的"></a>问题是如何出现的</h2><p>某天来到单位，得知需要调整下某个repo的权限，打开conf文件，配置好，执行git push，等待着出现配置成功的信息，几秒钟后，一片文字飘过，意思是大概是repo权限解析出现问题云云，检查conf文件，发现conf文件的前面几十行不知道去哪里了，这前几十行中包括gitolite-admin repo的配置、用户组的配置，以及许多项目repo的配置，问了下开发人员，果然所有的repo都无法pull和push了…</p>
 <p>然后开始了坎坷的恢复工作。</p>
 <h2 id="恢复过程"><a href="#恢复过程" class="headerlink" title="恢复过程"></a>恢复过程</h2><p>0.首先考虑gitolite-admin也是个repo，如果修改gitolite server上HEAD的commit id到提交之前的一次，是不是就可以恢复了？按照这个思路，修改了gitolite-admin的ref/head/master 中的commit id，测试结果；无效，恩，如果这样就成功了，未免太简单。</p>
 <p>1.进一步考虑gitolite-admin是一个比较特殊的repo，很可能提交的时候gitolite server修改了其他的配置文件，于是检索了下/home/git最近被修改的文件，发现被修改的还不少，其中~/.gitolite/conf下的几个文件看上去比较可疑，这个目录下有三个文件，分别是gitolite.conf, gitolite.conf-compiled.pm, rule_info,第一个文件中是，第二个文件，第三个文件的内容比较费解，没有深入研究，修改了前两个文件，测试，依然无效，恩，就算是思路是对的，rule_info这个文件也没有修改，无效是正常的。</p>
@@ -594,7 +603,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Pisces
   </a>
 </div>
 
@@ -660,6 +669,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
 
   
 
