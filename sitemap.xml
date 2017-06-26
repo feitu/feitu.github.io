@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://feitu.github.io/2017/05/30/Java_multithread_1/</loc>
+    
+    <lastmod>2017-06-26T08:32:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://feitu.github.io/2017/04/17/jvm_log_tool/</loc>
     
     <lastmod>2017-05-23T06:47:38.000Z</lastmod>
