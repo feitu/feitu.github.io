@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="feitu的博客">
 <meta property="og:description" content="引言Java多线程的从最初的Thread &amp;amp; Runnable，到JDK1.8中的parallel stream，几乎每个版本都有重大且深刻的变化，本文是本人对Java多线程的学习和使用的整理和记录。
 需求场景为了更好的说明，本文引入了一个来自于实际的、经过简化了的需求场景: 有一个User对象，User对象有2个属性，id和value，数据库中有user表作为对应，UserService">
-<meta property="og:updated_time" content="2017-06-26T08:32:00.000Z">
+<meta property="og:updated_time" content="2017-06-26T08:50:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程的学习和使用 1.基本用法">
 <meta name="twitter:description" content="引言Java多线程的从最初的Thread &amp;amp; Runnable，到JDK1.8中的parallel stream，几乎每个版本都有重大且深刻的变化，本文是本人对Java多线程的学习和使用的整理和记录。
@@ -376,7 +376,7 @@
 <p>改为<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">objects = Collections.synchronizedList(<span class="keyword">new</span> ArrayList&lt;&gt;());</div></pre></td></tr></table></figure></p>
 <p>使用一个同步的list就不会出现这种问题了（多说一句，在这个例子里，这样处理就可以了，但并非所有涉及到list的多线程场合，都是synchronizedList一下就可以的，很多时候还有使用内置锁机制，即synchronized）。</p>
 <h3 id="总结和心得"><a href="#总结和心得" class="headerlink" title="总结和心得"></a>总结和心得</h3><p>如果总一下的话，从最初的Thread到最近的parallelSteam,java的多线程编程发生了巨大的变化，这个变化的外因是多核CPU的普及使得并行算法越来越重要，而Java多线程本身的变化趋势也很明显，即使用方式上从复杂到简单，这一点，从上文的各种实例中可以清晰的看到。但是，多线程的开发涉及的领域很多，虽然Java不断的为开发者提供更加便捷的工具，想要写出安全的多线程代码依然不是轻而易举就可以做到的。</p>
-<h3 id="代码说明"><a href="#代码说明" class="headerlink" title="代码说明"></a>代码说明</h3><p>本文涉及的到的代码均在<br>clone代码之后，运行之前需要创建数据库并修改ctx.xml中的jdbc配置，代码是用maven管理的，在项目目录下执行mvn test即可运行</p>
+<h3 id="代码说明"><a href="#代码说明" class="headerlink" title="代码说明"></a>代码说明</h3><p>本文涉及的到的代码放在github的<a href="https://github.com/feitu/javaparallel" target="_blank" rel="external">这个repo</a>中<br>clone代码之后，运行之前需要创建数据库并修改ctx.xml中的jdbc配置，代码是用maven管理的，在项目目录下执行mvn test即可运行</p>
 
       
     </div>
